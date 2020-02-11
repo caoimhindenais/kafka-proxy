@@ -7,8 +7,7 @@ An example of a Kafka Proxy built using netty.  See references below for related
 __User Story__
 
 Two kafka producers (golang and dotnet) are producing messages and a springboot application is 
-consuming them. The message content should be encrypted (not the key's) and this should be transparent to all Kafka clients.
-
+consuming them. The message content should be encrypted (not the key's) and this should be transparent to all Kafka clients. <br/>
 ![Alt Text](./kafka.gif)
 
 __Quickstart__
@@ -50,7 +49,12 @@ _Note : Sometimes on startup the consumer throws a "Cannot connect to empty node
         dotnet run --project donet-producer/ >>  donet-producer.log
     done &
     ```
-_Note : 
+_Note : In this example if you start the producers to far ahead of the consumer you run into batch problems. I'm not sure if it's related to the AES or an ignored Kafka field, in anycase start the consumer first for now_
+
+__TODO/Ideas__
+* Fix two issues noted in quickstart
+* Allow more flexibility, give the option of just a transparent proxy (i.e. only logging no encryption)
+* Wrap it all in a kubernetes sidecar proxy
   
 __Resources__
  

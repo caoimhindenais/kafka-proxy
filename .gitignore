@@ -19,6 +19,17 @@ target/
 *.iml
 *.ipr
 
+### Logs ###
+*.log
+*.out
+
+### Go Binary ###
+go-producer/go-producer
+
+### Dotnet ###
+donet-producer/bin
+donet-producer/obj
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
