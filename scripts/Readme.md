@@ -1,1 +1,0 @@
-Some misc scripts you'll probably need to modify them to suit your exact needs
