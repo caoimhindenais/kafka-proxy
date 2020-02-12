@@ -55,7 +55,25 @@ __TODO/Ideas__
 * Fix two issues noted in quickstart
 * Allow more flexibility, give the option of just a transparent proxy (i.e. only logging no encryption)
 * Wrap it all in a kubernetes sidecar proxy
-  
+
+__Results__
+
+``` tail -f donet-producer.log go-producer.log ```
+
+![Kafka Logs](./golang-donet-producers.png)
+
+``` tail -f java-consumer.log ```
+
+![Consumer](./consumer-logs.png)
+
+
+```docker exec -it broker_kafka_1 bash /opt/kafka_2.12-2.3.0/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic villager --group broker-consumer --property print.key=true --property key.spearator="-" ```
+![Kafka Logs](./kafka-logs.png)
+
+
+```tail -f Kafka-proxy.out```
+![Kafka Logs](./kafka-proxy-logs.png)
+
 __Resources__
  
  There has been some work by different people in the past few year's and this is not an exhaustive list but 
