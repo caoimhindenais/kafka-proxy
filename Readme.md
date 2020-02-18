@@ -10,6 +10,8 @@ Two kafka producers (golang and dotnet) are producing messages and a springboot 
 consuming them. The message content should be encrypted (not the key's) and this should be transparent to all Kafka clients. <br/>
 ![Alt Text](./kafka.gif)
 
+Note : The diagram shows a proxy per Kafka client, in this example all these proxies collapse to one as we reuse it for all clients.  
+
 __Quickstart__
 
 _Note : adjust JAVA_HOME's accordingly to your local deployment's_ 
@@ -54,9 +56,12 @@ _Note : In this example if you start the producers to far ahead of the consumer 
 __TODO/Ideas__
 * Fix two issues noted in quickstart
 * Allow more flexibility, give the option of just a transparent proxy (i.e. only logging no encryption)
-* Wrap it all in a kubernetes sidecar proxy
+* Create the yaml to deploy it to Kubernetes, where each Kafka client has it's own sidecar proxy
 
 __Results__
+
+Below we have both the Dotnet and Go logs. Tailing them we see the message values printed in plaintext.
+
 
 ``` tail -f donet-producer.log go-producer.log ```
 
@@ -66,9 +71,18 @@ __Results__
 
 ![Consumer](./consumer-logs.png)
 
+The Kafka broker is running on a docker container. Using the docker execcommand we can log directly into a bash terminal. From here (using the kafka console consumer)  messages can be consumed without going through the Kafka proxy. Therefore there is no modification of the Kafka protocol in transient and we can clearly see the message values are encrypted.
 
 ```docker exec -it broker_kafka_1 bash /opt/kafka_2.12-2.3.0/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic villager --group broker-consumer --property print.key=true --property key.spearator="-" ```
+
 ![Kafka Logs](./kafka-logs.png)
+
+Finally taking a glimpse into the the proxy logs we can see Kafka requests and responses flowing by.  In the screenshot below we see a Produce request in transit.
+
+- A Kafka request with an API key of 0, i.e. a Produce request
+- The version of the Produce request is 7
+- The client is listening on the ephemeral port 52349 and this is the 4th request sent by the client, i.e. the correlation ID is 4
+- The destination topic is villager with a key donet* and value of Gloin 
 
 
 ```tail -f Kafka-proxy.out```
