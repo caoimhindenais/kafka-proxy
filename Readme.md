@@ -1,6 +1,6 @@
 # Kafka Proxy
 
-An example of a Kafka Proxy built using netty.  See references below for related work. <p align='right'>A <a href="http://www.swisspush.org">swisspush</a> project <a href="http://www.swisspush.org" border=0><img align="top"  src='https://1.gravatar.com/avatar/cf7292487846085732baf808def5685a?s=32'></a></p>
+ <p align='right'>An example of a Kafka Proxy built using netty.  See references below for related work. A <a href="http://www.swisspush.org">swisspush</a> project <a href="http://www.swisspush.org" border=0><img align="top"  src='https://1.gravatar.com/avatar/cf7292487846085732baf808def5685a?s=32'></a></p>
 
 __User Story__
 
