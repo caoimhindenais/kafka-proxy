@@ -10,7 +10,7 @@ consuming them. The message content should be encrypted (not the key's) and this
 
 Note : The diagram shows a proxy per Kafka client, in this example all these proxies collapse to one as we reuse it for all clients.  
 
-More notes : https://medium.com/@caoimhin.denais/kafka-proxies-and-service-meshes-8218353dac50
+More notes : https://medium.com/@caoimhin.denais/kafka-proxies-and-service-meshes-8218353dac50 <br/>
 
 
 __Quickstart__
