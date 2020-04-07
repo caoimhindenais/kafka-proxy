@@ -111,10 +111,11 @@ public class KafkaProxyBackendHandler extends ChannelInboundHandlerAdapter {
                 LinkedHashMap<TopicPartition, FetchResponse.PartitionData> modifiedResponseData = new LinkedHashMap<>();
 
                 responseData.forEach((partition, partitionData) -> {
-                    MemoryRecords memoryRecords = KafkaProxyFrontendHandler.decryptNewRecordsMap(partition, (MemoryRecords) partitionData.records);
+                    MemoryRecords memoryRecords =
+                            KafkaProxyFrontendHandler.decryptNewRecordsMap(partition, (MemoryRecords) partitionData.records);
 
 
-                    FetchResponse.PartitionData partitionData1 = new FetchResponse.PartitionData(partitionData.error,
+                    FetchResponse.PartitionData unencryptedPartition = new FetchResponse.PartitionData(partitionData.error,
                             partitionData.highWatermark,
                             partitionData.lastStableOffset,
                             partitionData.logStartOffset,
@@ -122,7 +123,7 @@ public class KafkaProxyBackendHandler extends ChannelInboundHandlerAdapter {
                             partitionData.abortedTransactions,
                             memoryRecords
                     );
-                    modifiedResponseData.put(partition, partitionData1);
+                    modifiedResponseData.put(partition, unencryptedPartition);
 
                 });
 
